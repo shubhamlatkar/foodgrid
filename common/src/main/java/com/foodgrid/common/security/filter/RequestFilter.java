@@ -97,6 +97,8 @@ public class RequestFilter extends OncePerRequestFilter {
             if (httpServletRequest.getRequestURL().toString().contains(logoutAll))
                 userRepository.save(user.setActiveTokens(new ArrayList<>()));
 
+            userSession.setToken(jwt);
+            userSession.setUsername(user.getUsername());
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

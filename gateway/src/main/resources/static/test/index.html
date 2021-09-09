@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./style.css"/>
     <title>Test Apis</title>
 </head>
 <body>
-    <header>
-        <ul>
-            <li id="menu-btn" onclick="menuTester();">Menu</li>
-            <li id="user-btn">User</li>
-            <li id="address-btn" onclick="addressTester();">Address</li>
-            <li id="cart-btn" onclick="cartTester();">Cart</li>
-        </ul>
-    </header>
-    <main>
-        <h1>Api Tester</h1>
-        <h2 id="current-test-heading"></h2>
-        <div id="content"></div>
-        <div class="loader-wrapper">
-            <div id="loader" class="loader"></div>
-        </div>
-    </main>
+<header>
+    <ul>
+        <li id="menu-btn" onclick="menuTester();">Menu</li>
+        <li id="user-btn" onclick="userPerformanceTester();">User</li>
+        <li id="address-btn" onclick="addressTester();">Address</li>
+        <li id="cart-btn" onclick="cartTester();">Cart</li>
+        <li id="bill-btn" onclick="billTester();">Bill</li>
+    </ul>
+</header>
+<main>
+    <h1>Api Tester</h1>
+    <h2 id="current-test-heading"></h2>
+    <div id="content"></div>
+    <div class="loader-wrapper">
+        <div id="loader" class="loader"></div>
+    </div>
+</main>
 </body>
 <script src="./index.js"></script>
 </html>

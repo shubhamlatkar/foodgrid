@@ -1,4 +1,4 @@
-package com.foodgrid.user.command.external.service.event.handler;
+package com.foodgrid.user.command.external.event.handler;
 
 import com.foodgrid.common.event.outbound.AuthenticationEvent;
 import com.foodgrid.common.event.service.AuthenticationEventHandlerImplementation;

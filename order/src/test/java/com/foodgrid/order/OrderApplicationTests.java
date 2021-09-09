@@ -12,7 +12,7 @@ class OrderApplicationTests {
     private OrderApplication orderApplication;
 
     @Test
-    @DisplayName("Tests redirect method of UserApplication")
+    @DisplayName("Tests redirect method of OrderApp")
     void redirect() {
         Assertions.assertNotNull(orderApplication.getDefault());
     }

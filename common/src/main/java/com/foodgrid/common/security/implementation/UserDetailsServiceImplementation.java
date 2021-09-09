@@ -80,7 +80,10 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
     }
 
     public Boolean saveUser(SignUp signUp) {
-        if (userRepository.existsByUsername(signUp.getUsername()) || userRepository.existsByEmail(signUp.getEmail())) {
+        if (
+                userRepository.findByUsername(signUp.getUsername()).stream().anyMatch(user -> user.getType().equals(signUp.getType())) ||
+                        userRepository.findByEmail(signUp.getEmail()).stream().anyMatch(user -> user.getType().equals(signUp.getType()))
+        ) {
             log.warn("Duplicate username or email");
             throw new InvalidDataException("Duplicate data");
         }

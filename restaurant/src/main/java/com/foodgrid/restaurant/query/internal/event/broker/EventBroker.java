@@ -17,7 +17,7 @@ public class EventBroker {
     }
 
     @JmsListener(destination = "${event.restaurant.menu}")
-    public void addressBroker(MenuEventDTO menu) {
+    public void menuEventBroker(MenuEventDTO menu) {
         menuEventHandler.consumeMenuEvent(menu);
     }
 }

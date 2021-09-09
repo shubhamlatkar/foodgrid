@@ -6,7 +6,7 @@ import com.foodgrid.common.payload.dto.event.UserAuthEventDTO;
 import com.foodgrid.common.security.component.UserSession;
 import com.foodgrid.common.utility.UserActivities;
 import com.foodgrid.common.utility.UserTypes;
-import com.foodgrid.user.command.external.service.event.handler.AuthenticationEventHandler;
+import com.foodgrid.user.command.external.event.handler.AuthenticationEventHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

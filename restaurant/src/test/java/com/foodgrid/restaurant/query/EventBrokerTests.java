@@ -35,7 +35,7 @@ class EventBrokerTests {
         when(userSession.getUserId()).thenReturn("1");
         var itemRequest = new ItemRequest("testName", 12.23, "testIngredients", "testComments", 9, 14, 19, 23);
         var menuEvent = new MenuEventDTO(itemRequest, "1", "1", "1", 4.3f, CrudActions.ADD);
-        eventBroker.addressBroker(menuEvent);
+        eventBroker.menuEventBroker(menuEvent);
         Assertions.assertNotNull(userSession.getUserId());
     }
 }

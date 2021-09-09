@@ -14,4 +14,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class UserSession {
     private String userId;
+    private String token;
+    private String username;
 }

@@ -5,6 +5,8 @@ event:
     cart: USER-CART
   restaurant:
     menu: RESTAURANT-MENU
+  accounts:
+    bill: BILL
 
 endpoint:
   service: api
@@ -37,8 +39,10 @@ endpoint:
     prefix: delivery
   order:
     prefix: order
-  account:
-    prefix: account
+  accounts:
+    prefix: accounts
+    bill: bill
+    item: item
 
 spring:
   profiles:

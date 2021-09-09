@@ -5,6 +5,7 @@ var restaurantToken = "";
 var restaurantId = "";
 var itemId = "";
 var addressId = "";
+var billId = "";
 
 var menuItem1 = {
     "name": "test1",
@@ -27,6 +28,172 @@ var menuItem2 = {
     "startSecond": 19,
     "endSecond": 22
 };
+
+/**
+----------------------BILL START-----------------------
+**/
+
+// Bill api for generate bill
+const testGenerateBill = () =>
+    new Promise(function(resolve, reject) {
+        var url = build ? "/accounts/api/v1/bill" : "http://localhost:8086/api/v1/bill";
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", url);
+
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.setRequestHeader("Authorization", "Bearer " + userToken);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                var data = JSON.parse(xhr.responseText);
+                billId = data.id;
+                console.log("testGenerateBill", xhr.status, data);
+                resolve("testGenerateBill successful");
+            }
+        };
+
+        var data = {
+            "userId":userId,
+            "restaurantId": restaurantId,
+            "addressId": addressId,
+            "items":[itemId]
+        };
+
+        xhr.send(JSON.stringify(data));
+    });
+
+
+// Bill api for delete
+const testBillDelete = () =>
+    new Promise(function(resolve, reject) {
+        var url = build ? "/accounts/api/v1/bill/" + billId : "http://localhost:8086/api/v1/bill/" + billId;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("DELETE", url);
+
+        xhr.setRequestHeader("Authorization", "Bearer " + userToken);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                var data = JSON.parse(xhr.responseText);
+                console.log("testBillDelete", xhr.status, data);
+                resolve("testBillDelete successful");
+            }
+        };
+
+        xhr.send();
+    });
+
+// Bill api for add item to bill
+const testAddItemToBill = () =>
+    new Promise(function(resolve, reject) {
+        var url = build ? "/accounts/api/v1/bill/" + billId : "http://localhost:8086/api/v1/bill/" + billId;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", url);
+
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.setRequestHeader("Authorization", "Bearer " + userToken);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                var data = JSON.parse(xhr.responseText);
+                billId = data.id;
+                console.log("testAddItemToBill", xhr.status, data);
+                resolve("testAddItemToBill successful");
+            }
+        };
+
+        var data = {
+            "itemId":itemId,
+            "restaurantId": restaurantId
+        };
+
+        xhr.send(JSON.stringify(data));
+    });
+
+// Bill api for delete item from cart
+const testBillDeleteItem = () =>
+    new Promise(function(resolve, reject) {
+        var url = build ? "/accounts/api/v1/bill/item/" + billId : "http://localhost:8086/api/v1/bill/item/" + billId;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("PATCH", url);
+
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer " + userToken);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                var data = JSON.parse(xhr.responseText);
+                billId = data.id;
+                console.log("testBillDeleteItem", xhr.status, data);
+                resolve("testBillDeleteItem successful");
+            }
+        };
+
+        var data = {
+            "itemId":itemId,
+            "restaurantId": restaurantId
+        };
+
+        xhr.send(JSON.stringify(data));
+    });
+
+// update bill api
+const testBillUpdate = () =>
+    new Promise(function(resolve, reject) {
+        var url = build ? "/accounts/api/v1/bill/" + billId : "http://localhost:8086/api/v1/bill/" + billId;
+        var xhr = new XMLHttpRequest();
+        xhr.open("PATCH", url);
+
+        xhr.setRequestHeader("Authorization", "Bearer " + userToken);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                var data = JSON.parse(xhr.responseText);
+                billId = data.id;
+                console.log("testBillUpdate", xhr.status, data);
+                resolve("testBillUpdate successful");
+            }
+        };
+
+        var data = {
+            "userId":userId,
+            "restaurantId": restaurantId,
+            "addressId": addressId,
+            "items":[itemId]
+        };
+
+        xhr.send(JSON.stringify(data));
+
+    });
+
+// Bill api for getting bill
+const testGetBill = () =>
+    new Promise(function(resolve, reject) {
+        var url = build ? "/accounts/api/v1/bill/" + billId : "http://localhost:8086/api/v1/bill/" + billId;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+
+        xhr.setRequestHeader("Authorization", "Bearer " + userToken);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                var data = JSON.parse(xhr.responseText);
+                console.log("testGetBill", xhr.status, data);
+                resolve("testGetBill successful");
+            }
+        };
+
+        xhr.send();
+    });
+
 /**
 ----------------------RESTAURANT START-----------------------
 **/
@@ -313,7 +480,7 @@ const testGetItemByRestaurantIdAndItemId = () =>
 ----------------------USER START-----------------------
 **/
 // User api for signup
-const testUserSignUp = () =>
+const testUserSignUp = (id = "") =>
     new Promise(function(resolve, reject) {
         var url = build ? "/user/api/v1/signup" : "http://localhost:8081/api/v1/signup";
 
@@ -330,19 +497,19 @@ const testUserSignUp = () =>
             }
         };
 
-        var data = `{
-            "username":"skl",
+        var data = {
+            "username":"skl" + id,
             "password":"email@shu.com",
-            "email":"email@shu.com",
+            "email":"email" + id + "@shu.com",
             "phone":"1234567890",
             "roles":["ROLE_USER"]
-        }`;
+        };
 
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
     });
 
 // User api for login
-const testUserLogin = () =>
+const testUserLogin = (id = "") =>
     new Promise(function(resolve, reject) {
         var url = build ? "/user/api/v1/login" : "http://localhost:8081/api/v1/login";
 
@@ -361,12 +528,12 @@ const testUserLogin = () =>
             }
         };
 
-        var data = `{
-            "username":"skl",
+        var data = {
+            "username":"skl" + id,
             "password":"email@shu.com"
-        }`;
+        };
 
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
     });
 
 // User api for logout
@@ -458,7 +625,7 @@ const testPutAddress = () =>
         var data = `{
           "location":{
             "x":123.23,
-              "y":123.543
+            "y":123.543
           },
           "name":"test",
           "addressLineOne":"test",
@@ -534,6 +701,7 @@ const testDeleteAddress = () =>
 
     });
 
+// update address api
 const testPatchAddress = () =>
     new Promise(function(resolve, reject) {
         var url = build ? "/user/api/v1/address/" + addressId : "http://localhost:8081/api/v1/address/" + addressId;
@@ -699,6 +867,7 @@ const changeLinkColor = activeLink => {
     document.getElementById("user-btn").style.borderBottomColor = "#1b1b1b";
     document.getElementById("address-btn").style.borderBottomColor = "#1b1b1b";
     document.getElementById("cart-btn").style.borderBottomColor = "#1b1b1b";
+    document.getElementById("bill-btn").style.borderBottomColor = "#1b1b1b";
     document.getElementById(activeLink).style.borderBottomColor = "#979595";
 }
 
@@ -720,6 +889,35 @@ const showLoader = (msg) => {
     document.getElementById("loader").style.display = "block";
     document.getElementById("current-test-heading").innerHTML = msg;
     content.innerHTML = "";
+}
+
+/**
+----------------------ADDRESS TESTER FUNCTION START-----------------------
+**/
+const userPerformanceTester = () => {
+    changeLinkColor("user-btn");
+    showLoader("User app performance testing");
+
+    let promises = [];
+    for (let i = 0; i < 2; i++) {
+      promises.push(
+        testUserSignUp(i).then((res) => {
+            addContent(res);
+            testUserLogin(i).then((res) => {
+                addContent(res);
+                testUserLogout().then((res) => {
+                    addContent(res);
+                    testUserDelete().then((res) => {
+                        addContent(res);
+                        return "done";
+                    });
+                });
+            });
+        })
+      );
+    }
+
+    Promise.all(promises).then(() => hideLoader());
 }
 
 
@@ -812,6 +1010,72 @@ const menuTester = () => {
     });
 };
 
+/**
+----------------------BILL TESTER FUNCTION START-----------------------
+**/
+
+const billTester = () => {
+    changeLinkColor("bill-btn");
+    showLoader("Bill app test suit");
+
+    testRestaurantSignUp().then(res => {
+        addContent(res);
+        testRestaurantLogin().then(res => {
+            addContent(res);
+            testUserSignUp().then(res => {
+                addContent(res);
+                testUserLogin().then(res => {
+                    addContent(res);
+                    testPutAddress().then((res) => {
+                        addContent(res);
+                        testAddItem(menuItem1).then(res => {
+                            addContent(res);
+                            setTimeout(() => {
+                                testGenerateBill().then((res) => {
+                                    addContent(res);
+                                    testPatchAddress().then(res => {
+                                        addContent(res);
+                                        testBillUpdate().then((res) => {
+                                            addContent(res);
+                                            testAddItem(menuItem2).then(res => {
+                                                addContent(res);
+                                                testGetBill().then((res) => {
+                                                addContent(res);
+                                                    testAddItemToBill().then((res) => {
+                                                        addContent(res);
+                                                        testGetBill().then((res) => {
+                                                            addContent(res);
+                                                            testBillDeleteItem().then((res) => {
+                                                                addContent(res);
+                                                                testGetBill().then((res) => {
+                                                                    addContent(res);
+                                                                    testBillDelete().then((res) => {
+                                                                        addContent(res);
+                                                                        testRestaurantDelete().then(res => {
+                                                                            addContent(res);
+                                                                            testUserDelete().then(res => {
+                                                                                addContent(res);
+                                                                                hideLoader();
+                                                                            });
+                                                                        });
+                                                                    });
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                             }, 3000);
+                        });
+                    });
+                });
+            });
+        });
+    });
+}
 
 /**
 ----------------------CART TESTER FUNCTION START-----------------------

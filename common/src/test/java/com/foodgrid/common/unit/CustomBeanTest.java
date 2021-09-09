@@ -41,7 +41,9 @@ class CustomBeanTest {
     @Test
     void testUserSessionBean() {
         userSession.setUserId("testId");
+        userSession.setToken("test");
         Assertions.assertNotNull(userSession.getUserId());
+        Assertions.assertNotNull(userSession.getToken());
 
     }
 }

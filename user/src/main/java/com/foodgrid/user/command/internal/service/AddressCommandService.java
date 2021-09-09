@@ -79,8 +79,8 @@ public class AddressCommandService {
             addressRepository.save(existingAddress);
             var addressEvent = new AddressEventDto(existingAddress, CrudActions.UPDATE);
             addressEventBroker.sendAddressEvent(addressEvent);
-            log.info("Address Command patched address :{}", address);
-            return new AddressOperationSuccess(addressId, "Patched successfully");
+            log.info("Address Command update address :{}", address);
+            return new AddressOperationSuccess(addressId, "Address updated successfully");
         } else return new AddressOperationSuccess(addressId, "Not Found");
     }
 }
